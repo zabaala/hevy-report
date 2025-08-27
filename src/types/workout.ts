@@ -35,8 +35,8 @@ export interface DailyWorkoutSummary {
 export interface ExerciseFilter {
   exerciseTitle: string
   selected: boolean
-  workoutCount?: number // Contador de treinos onde o exercício aparece
-  totalWorkouts?: number // Total de treinos para calcular X/Y
+  workoutCount?: number // Counter of workouts where the exercise appears
+  totalWorkouts?: number // Total workouts to calculate X/Y
 }
 
 export interface WorkoutFilters {

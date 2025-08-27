@@ -32,7 +32,7 @@ const DropZone: React.FC<DropZoneProps> = ({ onImportComplete }) => {
       onImportComplete({
         success: false,
         recordsImported: 0,
-        error: 'Por favor, selecione um arquivo CSV válido'
+        error: 'Please select a valid CSV file'
       })
       return
     }
@@ -48,7 +48,7 @@ const DropZone: React.FC<DropZoneProps> = ({ onImportComplete }) => {
       onImportComplete({
         success: false,
         recordsImported: 0,
-        error: 'Por favor, selecione um arquivo CSV válido'
+        error: 'Please select a valid CSV file'
       })
       return
     }
@@ -70,7 +70,7 @@ const DropZone: React.FC<DropZoneProps> = ({ onImportComplete }) => {
       onImportComplete({
         success: false,
         recordsImported: 0,
-        error: `Erro inesperado: ${error instanceof Error ? error.message : 'Erro desconhecido'}`
+        error: `Unexpected error: ${error instanceof Error ? error.message : 'Unknown error'}`
       })
     } finally {
       setIsImporting(false)
@@ -83,10 +83,10 @@ const DropZone: React.FC<DropZoneProps> = ({ onImportComplete }) => {
       <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
         <div className="mb-4">
           <div className="text-lg font-medium text-gray-900 mb-2">
-            Importando arquivo CSV...
+            Importing CSV file...
           </div>
           <div className="text-sm text-gray-600">
-            Por favor, aguarde enquanto processamos seus dados
+            Please wait while we process your data
           </div>
         </div>
         {progress && (
@@ -129,10 +129,10 @@ const DropZone: React.FC<DropZoneProps> = ({ onImportComplete }) => {
       
       <div className="mb-4">
         <p className="text-lg font-medium text-gray-900 mb-2">
-          Arraste e solte seu arquivo CSV aqui
+          Drag and drop your CSV file here
         </p>
         <p className="text-sm text-gray-600">
-          ou clique para selecionar um arquivo
+          or click to select a file
         </p>
       </div>
 
@@ -146,13 +146,13 @@ const DropZone: React.FC<DropZoneProps> = ({ onImportComplete }) => {
         />
         <label htmlFor="csv-file-input">
           <span className="inline-block cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            Selecionar Arquivo CSV
+            Select CSV File
           </span>
         </label>
       </div>
 
       <div className="text-xs text-gray-500">
-        Formatos aceitos: .csv
+        Accepted formats: .csv
       </div>
     </div>
   )

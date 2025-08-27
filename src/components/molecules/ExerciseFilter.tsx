@@ -38,13 +38,13 @@ const ExerciseFilter: React.FC<ExerciseFilterProps> = ({
       {/* Header with select all button */}
       <div className="flex items-center justify-between">
         <div className="text-xs text-gray-600">
-          {selectedCount} de {exercises.length} exercícios selecionados
+          {selectedCount} of {exercises.length} exercises selected
         </div>
         <button
           onClick={handleSelectAll}
           className="text-xs text-blue-600 hover:text-blue-500 transition-colors"
         >
-          {allSelected ? 'Desmarcar Todos' : 'Selecionar Todos'}
+          {allSelected ? 'Deselect All' : 'Select All'}
         </button>
       </div>
 

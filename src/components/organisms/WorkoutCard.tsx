@@ -58,9 +58,9 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({
         <div>
           <h3 className="text-lg font-semibold text-gray-900 mb-1">{workoutTitle}</h3>
           <div className="flex items-center space-x-4 text-xs text-gray-600">
-            <span>{sortedSummaries.length} sessões</span>
+            <span>{sortedSummaries.length} sessions</span>
             <span>•</span>
-            <span>{sortedSummaries.length > 0 ? formatWeight(sortedSummaries.reduce((sum, s) => sum + s.totalVolume, 0) / sortedSummaries.length) : '0.00 kg'} médio</span>
+            <span>{sortedSummaries.length > 0 ? formatWeight(sortedSummaries.reduce((sum, s) => sum + s.totalVolume, 0) / sortedSummaries.length) : '0.00 kg'} average</span>
           </div>
         </div>
         <button
@@ -71,7 +71,7 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
           }`}
         >
-          {showExerciseFilter ? '✓ Filtrar' : 'Filtrar'}
+          {showExerciseFilter ? '✓ ' : ''} Filter
         </button>
       </div>
 
@@ -168,7 +168,7 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({
                         <tr>
                           <td colSpan={6} className="py-2 px-4 bg-gray-50">
                             <div className="text-xs text-gray-600 pl-6">
-                              <span className="font-bold">Exercícios:<br /></span>
+                              <span className="font-bold">Exercises:<br /></span>
                               {summary.exercises.join(', ')}
                             </div>
                           </td>

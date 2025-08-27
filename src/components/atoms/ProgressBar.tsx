@@ -17,7 +17,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   return (
     <div className={`w-full ${className}`}>
       <div className="flex justify-between items-center mb-2">
-        <span className="text-sm text-dark-text-secondary">Progresso da importação</span>
+        <span className="text-sm text-dark-text-secondary">Import progress</span>
         {showPercentage && (
           <span className="text-sm text-dark-text">{formatPercentage(clampedProgress)}</span>
         )}

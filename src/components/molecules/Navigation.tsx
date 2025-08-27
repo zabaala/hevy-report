@@ -32,10 +32,10 @@ const Navigation: React.FC = () => {
             </h1>
             <div className="flex space-x-2">
               <Link to="/data" className={linkClasses('/data')}>
-                Dados
+                Data
               </Link>
               
-              {/* Relatórios Dropdown */}
+              {/* Reports Dropdown */}
               <div className="relative">
                 <button
                   onClick={() => setIsReportsOpen(!isReportsOpen)}
@@ -45,7 +45,7 @@ const Navigation: React.FC = () => {
                       : 'text-gray-700 hover:bg-gray-100'
                   }`}
                 >
-                  <span>Relatórios</span>
+                  <span>Reports</span>
                   <svg 
                     className={`w-4 h-4 transition-transform duration-200 ${isReportsOpen ? 'rotate-180' : ''}`}
                     fill="none" 
@@ -64,10 +64,10 @@ const Navigation: React.FC = () => {
                         className={dropdownLinkClasses('/reports/workouts')}
                         onClick={() => setIsReportsOpen(false)}
                       >
-                        Treinos
+                        Workouts
                       </Link>
                       <div className="px-4 py-2 text-xs text-gray-500 border-t border-gray-100 mt-1">
-                        Mais relatórios em breve...
+                        More reports coming soon...
                       </div>
                     </div>
                   </div>

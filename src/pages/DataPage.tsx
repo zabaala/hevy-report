@@ -45,7 +45,7 @@ const DataPage: React.FC = () => {
   }
 
   const handleClearData = async () => {
-    if (window.confirm('Tem certeza que deseja limpar todos os dados importados?')) {
+    if (window.confirm('Are you sure you want to clear all imported data?')) {
       try {
         await db.clearAllWorkouts()
         clearData()
@@ -76,15 +76,15 @@ const DataPage: React.FC = () => {
     <div className="max-w-6xl mx-auto space-y-6">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Dados
+          Data
         </h1>
         <p className="text-gray-600">
-          Importe e gerencie seus dados de treino do Hevy em formato CSV
+          Import and manage your Hevy workout data in CSV format
         </p>
       </div>
 
       {/* Import Section */}
-      <Card title="Importar Arquivo CSV">
+      <Card title="Import CSV File">
         <DropZone onImportComplete={handleImportComplete} />
         
         {importResult && (
@@ -96,21 +96,21 @@ const DataPage: React.FC = () => {
             {importResult.success ? (
               <div>
                 <p className="text-success font-medium">
-                  ✓ Importação concluída com sucesso!
+                  ✓ Import completed successfully!
                 </p>
                 <p className="text-gray-600 text-sm mt-1">
-                  {importResult.recordsImported} registros importados do CSV
+                  {importResult.recordsImported} records imported from CSV
                 </p>
                 <div className="mt-3">
                   <Button onClick={handleGoToReports} size="sm">
-                    Ver Relatórios
+                    View Reports
                   </Button>
                 </div>
               </div>
             ) : (
               <div>
                 <p className="text-error font-medium">
-                  ✗ Erro na importação
+                  ✗ Import error
                 </p>
                 <p className="text-gray-600 text-sm mt-1">
                   {importResult.error}
@@ -123,10 +123,10 @@ const DataPage: React.FC = () => {
 
       {/* Data Preview Section */}
       {importedData.length > 0 && (
-        <Card title={`Dados Importados (${importedData.length} registros)`}>
+        <Card title={`Imported Data (${importedData.length} records)`}>
           <div className="mb-4 flex justify-between items-center">
             <p className="text-gray-600 text-sm">
-              Visualização dos dados importados com paginação
+              View of imported data with pagination
             </p>
             <Button 
               variant="secondary" 
@@ -134,13 +134,13 @@ const DataPage: React.FC = () => {
               onClick={handleClearData}
               className="text-error hover:text-error"
             >
-              Limpar Dados
+              Clear Data
             </Button>
           </div>
 
           {isLoading ? (
             <div className="text-center py-8">
-              <p className="text-gray-600">Carregando dados...</p>
+              <p className="text-gray-600">Loading data...</p>
             </div>
           ) : (
             <>
@@ -149,11 +149,11 @@ const DataPage: React.FC = () => {
                   <thead>
                     <tr className="border-b border-gray-200">
                       <th className="text-left py-2 px-3 text-gray-900 font-medium">#</th>
-                      <th className="text-left py-2 px-3 text-gray-900 font-medium">Título</th>
-                      <th className="text-left py-2 px-3 text-gray-900 font-medium">Data/Hora</th>
-                      <th className="text-left py-2 px-3 text-gray-900 font-medium">Exercício</th>
+                      <th className="text-left py-2 px-3 text-gray-900 font-medium">Title</th>
+                      <th className="text-left py-2 px-3 text-gray-900 font-medium">Date/Time</th>
+                      <th className="text-left py-2 px-3 text-gray-900 font-medium">Exercise</th>
                       <th className="text-left py-2 px-3 text-gray-900 font-medium">Set</th>
-                      <th className="text-left py-2 px-3 text-gray-900 font-medium">Peso (kg)</th>
+                      <th className="text-left py-2 px-3 text-gray-900 font-medium">Weight (kg)</th>
                       <th className="text-left py-2 px-3 text-gray-900 font-medium">Reps</th>
                     </tr>
                   </thead>
@@ -165,7 +165,7 @@ const DataPage: React.FC = () => {
                         </td>
                         <td className="py-2 px-3 text-gray-900">{record.title}</td>
                         <td className="py-2 px-3 text-gray-600">
-                          {new Date(record.start_time).toLocaleDateString('pt-BR', {
+                          {new Date(record.start_time).toLocaleDateString('en-US', {
                             day: '2-digit',
                             month: '2-digit',
                             year: 'numeric',
@@ -196,7 +196,7 @@ const DataPage: React.FC = () => {
                     onClick={() => goToPage(currentPage - 1)}
                     disabled={currentPage === 1}
                   >
-                    Anterior
+                    Previous
                   </Button>
                   
                   <div className="flex space-x-1">
@@ -221,7 +221,7 @@ const DataPage: React.FC = () => {
                     onClick={() => goToPage(currentPage + 1)}
                     disabled={currentPage === totalPages}
                   >
-                    Próxima
+                    Next
                   </Button>
                 </div>
               )}

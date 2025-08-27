@@ -63,7 +63,7 @@ export class CSVImportService {
                 resolve({
                   success: false,
                   recordsImported: 0,
-                  error: 'Arquivo CSV está vazio ou não contém dados válidos'
+                  error: 'CSV file is empty or does not contain valid data'
                 })
                 return
               }
@@ -102,7 +102,7 @@ export class CSVImportService {
                 resolve({
                   success: false,
                   recordsImported: 0,
-                  error: `Campos obrigatórios ausentes no CSV: ${missingFields.join(', ')}`
+                  error: `Required fields missing in CSV: ${missingFields.join(', ')}`
                 })
                 return
               }

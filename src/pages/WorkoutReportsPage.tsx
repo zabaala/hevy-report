@@ -86,9 +86,9 @@ const WorkoutReportsPage: React.FC = () => {
     return (
       <div className="max-w-6xl mx-auto">
         <div className="text-center py-12">
-          <div className="text-lg text-gray-900 mb-2">Carregando dados...</div>
+          <div className="text-lg text-gray-900 mb-2">Loading data...</div>
           <div className="text-gray-600">
-            Por favor, aguarde enquanto carregamos seus treinos
+            Please wait while we load your workouts
           </div>
         </div>
       </div>
@@ -99,10 +99,10 @@ const WorkoutReportsPage: React.FC = () => {
     return (
       <div className="max-w-6xl mx-auto">
         <div className="text-center py-12">
-          <div className="text-lg text-error mb-2">Erro ao carregar dados</div>
+          <div className="text-lg text-error mb-2">Error loading data</div>
           <div className="text-gray-600 mb-4">{error}</div>
           <Button onClick={handleGoToImport} variant="primary">
-            Ir para Dados
+            Go to Data
           </Button>
         </div>
       </div>
@@ -113,12 +113,12 @@ const WorkoutReportsPage: React.FC = () => {
     return (
       <div className="max-w-6xl mx-auto">
         <div className="text-center py-12">
-          <div className="text-lg text-dark-text mb-2">Nenhum dado encontrado</div>
+          <div className="text-lg text-dark-text mb-2">No data found</div>
           <div className="text-dark-text-secondary mb-6">
-            Importe seus dados de treino para começar a visualizar relatórios
+            Import your workout data to start viewing reports
           </div>
           <Button onClick={handleGoToImport} variant="primary">
-            Importar Dados
+            Import Data
           </Button>
         </div>
       </div>
@@ -131,10 +131,10 @@ const WorkoutReportsPage: React.FC = () => {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Relatório de Treinos
+            Workout Report
           </h1>
           <p className="text-gray-600">
-            Análise de volume e evolução dos seus treinos
+            Volume analysis and evolution of your workouts
           </p>
         </div>
         <div>
@@ -146,7 +146,7 @@ const WorkoutReportsPage: React.FC = () => {
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
-            {showWorkoutFilter ? '✓ Filtrar' : 'Filtrar'}
+            {showWorkoutFilter ? '✓ Filter' : 'Filter'}
           </button>
         </div>
       </div>
@@ -155,20 +155,20 @@ const WorkoutReportsPage: React.FC = () => {
       {showWorkoutFilter && allWorkoutTitles.length > 0 && (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">Filtrar Treinos</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Filter Workouts</h3>
             <button
               onClick={handleSelectAllWorkouts}
               className="text-sm text-blue-600 hover:text-blue-500 transition-colors"
             >
               {filters.selectedWorkouts.length === allWorkoutTitles.length 
-                ? 'Desmarcar Todos' 
-                : 'Selecionar Todos'
+                ? 'Deselect All' 
+                : 'Select All'
               }
             </button>
           </div>
           
           <div className="text-sm text-gray-600 mb-4">
-            {filters.selectedWorkouts.length} de {allWorkoutTitles.length} treinos selecionados
+            {filters.selectedWorkouts.length} of {allWorkoutTitles.length} workouts selected
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -205,7 +205,7 @@ const WorkoutReportsPage: React.FC = () => {
             {workouts.length}
           </div>
           <div className="text-gray-600 text-sm">
-            Total de Sets
+            Total Sets
           </div>
         </div>
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 text-center">
@@ -213,7 +213,7 @@ const WorkoutReportsPage: React.FC = () => {
             {workoutTitles.length}
           </div>
           <div className="text-gray-600 text-sm">
-            Tipos de Treino
+            Workout Types
           </div>
         </div>
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 text-center">
@@ -221,7 +221,7 @@ const WorkoutReportsPage: React.FC = () => {
             {Object.values(workoutSummaries).reduce((sum, summaries) => sum + summaries.length, 0)}
           </div>
           <div className="text-gray-600 text-sm">
-            Sessões de Treino
+            Training Sessions
           </div>
         </div>
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 text-center">
@@ -231,7 +231,7 @@ const WorkoutReportsPage: React.FC = () => {
               .reduce((sum, summary) => sum + summary.totalVolume, 0))}
           </div>
           <div className="text-gray-600 text-sm">
-            Volume Total
+            Total Volume
           </div>
         </div>
       </div>
@@ -240,10 +240,10 @@ const WorkoutReportsPage: React.FC = () => {
       {workoutTitles.length === 0 ? (
         <div className="text-center py-12">
           <div className="text-lg text-dark-text mb-2">
-            Nenhum treino encontrado com os filtros atuais
+            No workouts found with current filters
           </div>
           <div className="text-dark-text-secondary">
-            Ajuste os filtros ou importe novos dados
+            Adjust filters or import new data
           </div>
         </div>
       ) : (
@@ -262,7 +262,7 @@ const WorkoutReportsPage: React.FC = () => {
 
       {/* Print-only footer */}
       <div className="hidden print:block mt-8 pt-4 border-t border-gray-300 text-center text-sm text-gray-600">
-        <p>Hevy Report - Relatório de Treinos gerado em {new Date().toLocaleDateString('pt-BR')}</p>
+        <p>Hevy Report - Workout Report generated on {new Date().toLocaleDateString('en-US')}</p>
       </div>
     </div>
   )
