@@ -7,13 +7,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Dark mode colors
-        dark: {
-          bg: '#0f172a',
-          surface: '#1e293b',
-          border: '#334155',
-          text: '#f1f5f9',
-          'text-secondary': '#94a3b8',
+        // Light mode colors
+        light: {
+          bg: '#ffffff',
+          surface: '#f8fafc',
+          border: '#e2e8f0',
+          text: '#1e293b',
+          'text-secondary': '#64748b',
         },
         // Status colors
         success: '#10b981',

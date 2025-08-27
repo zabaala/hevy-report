@@ -80,12 +80,12 @@ const DropZone: React.FC<DropZoneProps> = ({ onImportComplete }) => {
 
   if (isImporting) {
     return (
-      <div className="border-2 border-dashed border-dark-border rounded-lg p-8 text-center">
+      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
         <div className="mb-4">
-          <div className="text-lg font-medium text-dark-text mb-2">
+          <div className="text-lg font-medium text-gray-900 mb-2">
             Importando arquivo CSV...
           </div>
-          <div className="text-sm text-dark-text-secondary">
+          <div className="text-sm text-gray-600">
             Por favor, aguarde enquanto processamos seus dados
           </div>
         </div>
@@ -103,8 +103,8 @@ const DropZone: React.FC<DropZoneProps> = ({ onImportComplete }) => {
     <div
       className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors duration-200 ${
         isDragOver 
-          ? 'border-blue-500 bg-blue-500/10' 
-          : 'border-dark-border hover:border-blue-400'
+          ? 'border-blue-500 bg-blue-50' 
+          : 'border-gray-300 hover:border-blue-400'
       }`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}

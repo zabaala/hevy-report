@@ -18,7 +18,7 @@
 
 @layer components {
   .card {
-    @apply bg-dark-surface border border-dark-border rounded-lg p-6 shadow-lg;
+    @apply bg-white border border-gray-200 rounded-lg p-6 shadow-md;
   }
   
   .btn-primary {
@@ -26,15 +26,15 @@
   }
   
   .btn-secondary {
-    @apply bg-dark-surface hover:bg-gray-600 text-dark-text border border-dark-border font-medium py-2 px-4 rounded-md transition-colors duration-200;
+    @apply bg-gray-100 hover:bg-gray-200 text-gray-900 border border-gray-300 font-medium py-2 px-4 rounded-md transition-colors duration-200;
   }
   
   .input-field {
-    @apply bg-dark-surface border border-dark-border text-dark-text rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+    @apply bg-white border border-gray-300 text-gray-900 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
   }
   
   .select-field {
-    @apply bg-dark-surface border border-dark-border text-dark-text rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+    @apply bg-white border border-gray-300 text-gray-900 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
   }
 }
 
