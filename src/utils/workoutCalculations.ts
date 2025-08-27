@@ -121,7 +121,7 @@ export const calculateWorkoutSummaries = (
   // First pass: calculate basic metrics for each date/title combination
   const workoutsByTitle: Record<string, WorkoutSummary[]> = {}
 
-  Object.entries(grouped).forEach(([date, titleGroups]) => {
+  Object.entries(grouped).forEach(([, titleGroups]) => {
     Object.entries(titleGroups).forEach(([title, records]) => {
       const totalSets = records.length
       const totalReps = records.reduce((sum, record) => sum + (record.reps ?? 1), 0)
@@ -132,7 +132,7 @@ export const calculateWorkoutSummaries = (
 
       const summary: WorkoutSummary = {
         title,
-        date: records[0].start_time, // Use original date with time instead of grouped date key
+        date: records[0].start_time, // Use the original date with time instead of grouped date key
         totalSets,
         totalReps,
         totalVolume,
@@ -185,9 +185,9 @@ export const formatVolumeDiff = (diff: number, percent: number): string => {
   return `${sign}${formattedWeight} (${sign}${formattedPercent})`
 }
 
-// Format weight values with thousands separator and kg suffix
+// Format weight values with a thousand separators and kg suffix
 export const formatWeight = (value: number): string => {
-  return value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' kg'
+  return value.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' kg'
 }
 
 // Format percentage values with 2 decimal places
