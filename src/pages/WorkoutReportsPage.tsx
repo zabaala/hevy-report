@@ -13,7 +13,8 @@ const WorkoutReportsPage: React.FC = () => {
     error, 
     filters, 
     loadWorkouts, 
-    updateExerciseFilters 
+    updateExerciseFilters,
+    updateFilters 
   } = useWorkoutStore()
 
   useEffect(() => {
@@ -49,8 +50,30 @@ const WorkoutReportsPage: React.FC = () => {
     return Object.keys(workoutSummaries).sort()
   }, [workoutSummaries])
 
+  // Get all available workout titles from raw data
+  const allWorkoutTitles = useMemo(() => {
+    const titles = Array.from(new Set(workouts.map(w => w.title))).sort()
+    return titles
+  }, [workouts])
+
+  // Initialize workout filters if empty (all selected by default)
+  useEffect(() => {
+    if (allWorkoutTitles.length > 0 && filters.selectedWorkouts.length === 0) {
+      updateFilters({ selectedWorkouts: allWorkoutTitles })
+    }
+  }, [allWorkoutTitles, filters.selectedWorkouts.length, updateFilters])
+
   const handleExerciseFilterChange = (workoutTitle: string, exerciseFilters: { exerciseTitle: string; selected: boolean }[]) => {
     updateExerciseFilters(workoutTitle, exerciseFilters)
+  }
+
+  const handleWorkoutFilterChange = (selectedTitles: string[]) => {
+    updateFilters({ selectedWorkouts: selectedTitles })
+  }
+
+  const handleSelectAllWorkouts = () => {
+    const allSelected = filters.selectedWorkouts.length === allWorkoutTitles.length
+    updateFilters({ selectedWorkouts: allSelected ? [] : allWorkoutTitles })
   }
 
   const handleGoToImport = () => {
@@ -168,6 +191,53 @@ const WorkoutReportsPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Workout Filter */}
+      {allWorkoutTitles.length > 0 && (
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-900">Filtrar Treinos</h3>
+            <button
+              onClick={handleSelectAllWorkouts}
+              className="text-sm text-blue-600 hover:text-blue-500 transition-colors"
+            >
+              {filters.selectedWorkouts.length === allWorkoutTitles.length 
+                ? 'Desmarcar Todos' 
+                : 'Selecionar Todos'
+              }
+            </button>
+          </div>
+          
+          <div className="text-sm text-gray-600 mb-4">
+            {filters.selectedWorkouts.length} de {allWorkoutTitles.length} treinos selecionados
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            {allWorkoutTitles.map((title) => (
+              <label
+                key={title}
+                className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors"
+              >
+                <input
+                  type="checkbox"
+                  checked={filters.selectedWorkouts.includes(title)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      handleWorkoutFilterChange([...filters.selectedWorkouts, title])
+                    } else {
+                      handleWorkoutFilterChange(filters.selectedWorkouts.filter(t => t !== title))
+                    }
+                  }}
+                  className="w-4 h-4 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                />
+                <span className="text-sm text-gray-900 truncate">
+                  {title}
+                </span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Workout Cards */}
       {workoutTitles.length === 0 ? (

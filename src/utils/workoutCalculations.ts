@@ -46,7 +46,7 @@ export const groupWorkoutsByDateAndTitle = (
 
     // Filter by selected exercises if specified
     const selectedForWorkout = selectedExercises[titleKey]
-    if (selectedForWorkout && !selectedForWorkout.includes(workout.exercise_title)) {
+    if (selectedForWorkout && selectedForWorkout.length > 0 && !selectedForWorkout.includes(workout.exercise_title)) {
       return
     }
 
