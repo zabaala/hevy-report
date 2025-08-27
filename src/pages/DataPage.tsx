@@ -16,8 +16,8 @@ const DataPage: React.FC = () => {
   const [importedData, setImportedData] = useState<WorkoutRecord[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
-
-  const itemsPerPage = 10
+  const [showImport, setShowImport] = useState(false)
+  const [pageSize, setPageSize] = useState(10)
 
   useEffect(() => {
     loadImportedData()
@@ -63,9 +63,9 @@ const DataPage: React.FC = () => {
   }
 
   // Pagination
-  const totalPages = Math.ceil(importedData.length / itemsPerPage)
-  const startIndex = (currentPage - 1) * itemsPerPage
-  const endIndex = startIndex + itemsPerPage
+  const totalPages = Math.ceil(importedData.length / pageSize)
+  const startIndex = (currentPage - 1) * pageSize
+  const endIndex = startIndex + pageSize
   const currentData = importedData.slice(startIndex, endIndex)
 
   const goToPage = (page: number) => {
@@ -74,18 +74,42 @@ const DataPage: React.FC = () => {
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Data
-        </h1>
-        <p className="text-gray-600">
-          Import and manage your Hevy workout data in CSV format
-        </p>
+      {/* Header with title and buttons */}
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Data
+          </h1>
+          <p className="text-gray-600">
+            Import and manage your Hevy workout data in CSV format
+          </p>
+        </div>
+        <div className="flex items-center space-x-3">
+          <button
+            onClick={() => setShowImport(!showImport)}
+            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+              showImport
+                ? 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            {showImport ? '✓ Import' : 'Import'}
+          </button>
+          <Button 
+            variant="secondary" 
+            size="sm" 
+            onClick={handleClearData}
+            className="text-error hover:text-error"
+          >
+            Clear Data
+          </Button>
+        </div>
       </div>
 
       {/* Import Section */}
-      <Card title="Import CSV File">
-        <DropZone onImportComplete={handleImportComplete} />
+      {showImport && (
+        <Card title="Import CSV File">
+          <DropZone onImportComplete={handleImportComplete} />
         
         {importResult && (
           <div className={`mt-4 p-4 rounded-md ${
@@ -119,24 +143,12 @@ const DataPage: React.FC = () => {
             )}
           </div>
         )}
-      </Card>
+        </Card>
+      )}
 
       {/* Data Preview Section */}
       {importedData.length > 0 && (
         <Card title={`Imported Data (${importedData.length} records)`}>
-          <div className="mb-4 flex justify-between items-center">
-            <p className="text-gray-600 text-sm">
-              View of imported data with pagination
-            </p>
-            <Button 
-              variant="secondary" 
-              size="sm" 
-              onClick={handleClearData}
-              className="text-error hover:text-error"
-            >
-              Clear Data
-            </Button>
-          </div>
 
           {isLoading ? (
             <div className="text-center py-8">
@@ -189,7 +201,32 @@ const DataPage: React.FC = () => {
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="flex justify-center items-center mt-6 space-x-2">
+                <div className="flex justify-between items-center mt-6">
+                  {/* Page Size Selector */}
+                  <div className="flex items-center space-x-2">
+                    <label htmlFor="pageSize" className="text-sm text-gray-600">
+                      Show:
+                    </label>
+                    <select
+                      id="pageSize"
+                      value={pageSize}
+                      onChange={(e) => {
+                        setPageSize(Number(e.target.value))
+                        setCurrentPage(1)
+                      }}
+                      className="px-3 py-1 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value={5}>5</option>
+                      <option value={10}>10</option>
+                      <option value={25}>25</option>
+                      <option value={50}>50</option>
+                      <option value={100}>100</option>
+                    </select>
+                    <span className="text-sm text-gray-600">per page</span>
+                  </div>
+
+                  {/* Pagination Controls */}
+                  <div className="flex items-center space-x-2">
                   <Button
                     variant="secondary"
                     size="sm"
@@ -215,14 +252,15 @@ const DataPage: React.FC = () => {
                     })}
                   </div>
 
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    onClick={() => goToPage(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                  >
-                    Next
-                  </Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => goToPage(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                    >
+                      Next
+                    </Button>
+                  </div>
                 </div>
               )}
             </>
