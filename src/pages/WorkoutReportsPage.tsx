@@ -5,7 +5,7 @@ import WorkoutCard from '../components/organisms/WorkoutCard'
 import Button from '../components/atoms/Button'
 import { calculateWorkoutSummaries } from '../utils/workoutCalculations'
 
-const DashboardPage: React.FC = () => {
+const WorkoutReportsPage: React.FC = () => {
   const navigate = useNavigate()
   const { 
     workouts, 
@@ -201,4 +201,4 @@ const DashboardPage: React.FC = () => {
   )
 }
 
-export default DashboardPage
+export default WorkoutReportsPage

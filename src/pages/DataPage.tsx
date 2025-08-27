@@ -8,7 +8,7 @@ import { useWorkoutStore } from '../store/workoutStore'
 import { db } from '../services/database'
 import { WorkoutRecord } from '../types/workout'
 
-const ImportPage: React.FC = () => {
+const DataPage: React.FC = () => {
   const navigate = useNavigate()
   const { loadWorkouts, clearData } = useWorkoutStore()
   const [importResult, setImportResult] = useState<ImportResult | null>(null)
@@ -57,8 +57,8 @@ const ImportPage: React.FC = () => {
     }
   }
 
-  const handleGoToDashboard = () => {
-    navigate('/dashboard')
+  const handleGoToReports = () => {
+    navigate('/reports/workouts')
   }
 
   // Pagination
@@ -74,11 +74,11 @@ const ImportPage: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-dark-text mb-2">
-          Importação de Dados
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          Dados
         </h1>
-        <p className="text-dark-text-secondary">
-          Importe seus dados de treino do Hevy em formato CSV
+        <p className="text-gray-600">
+          Importe e gerencie seus dados de treino do Hevy em formato CSV
         </p>
       </div>
 
@@ -101,8 +101,8 @@ const ImportPage: React.FC = () => {
                   {importResult.recordsImported} registros importados do CSV
                 </p>
                 <div className="mt-3">
-                  <Button onClick={handleGoToDashboard} size="sm">
-                    Ir para Dashboard
+                  <Button onClick={handleGoToReports} size="sm">
+                    Ver Relatórios
                   </Button>
                 </div>
               </div>
@@ -232,4 +232,4 @@ const ImportPage: React.FC = () => {
   )
 }
 
-export default ImportPage
+export default DataPage
