@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ExerciseFilter from '../molecules/ExerciseFilter'
 import { WorkoutSummary, ExerciseFilter as ExerciseFilterType } from '../../types/workout'
-import { formatDate, getVolumeChangeColor, formatVolumeDiff, formatWeight, formatPercentage } from '../../utils/workoutCalculations'
+import { formatDate, getVolumeChangeColor, formatWeight, formatPercentage } from '../../utils/workoutCalculations'
 
 interface WorkoutCardProps {
   workoutTitle: string

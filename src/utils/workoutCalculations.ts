@@ -6,9 +6,53 @@ export const calculateSetVolume = (reps: number | null, weight: number | null): 
   return actualReps * actualWeight
 }
 
+// Parse Hevy date format: "27 Aug 2025, 07:20" to proper Date object
+export const parseHevyDate = (dateString: string): Date | null => {
+  try {
+    // Hevy format: "27 Aug 2025, 07:20"
+    const regex = /^(\d{1,2})\s+(\w{3})\s+(\d{4}),\s+(\d{2}):(\d{2})$/
+    const match = dateString.match(regex)
+    
+    if (!match) {
+      // Try standard Date parsing as fallback
+      const date = new Date(dateString)
+      return isNaN(date.getTime()) ? null : date
+    }
+    
+    const [, day, monthStr, year, hour, minute] = match
+    
+    // Convert month abbreviation to number
+    const monthMap: Record<string, number> = {
+      'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
+      'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
+    }
+    
+    const monthNum = monthMap[monthStr]
+    if (monthNum === undefined) {
+      return null
+    }
+    
+    const date = new Date(
+      parseInt(year),
+      monthNum,
+      parseInt(day),
+      parseInt(hour),
+      parseInt(minute)
+    )
+    
+    return isNaN(date.getTime()) ? null : date
+  } catch {
+    return null
+  }
+}
+
 export const formatDate = (dateString: string): string => {
   try {
-    const date = new Date(dateString)
+    // Use custom Hevy date parser
+    const date = parseHevyDate(dateString)
+    if (!date) {
+      return dateString
+    }
     return date.toLocaleDateString('pt-BR', {
       day: '2-digit',
       month: '2-digit',
@@ -23,7 +67,11 @@ export const formatDate = (dateString: string): string => {
 
 export const formatDateOnly = (dateString: string): string => {
   try {
-    const date = new Date(dateString)
+    // Use custom Hevy date parser
+    const date = parseHevyDate(dateString)
+    if (!date) {
+      return dateString
+    }
     return date.toLocaleDateString('pt-BR', {
       day: '2-digit',
       month: '2-digit',
@@ -84,7 +132,7 @@ export const calculateWorkoutSummaries = (
 
       const summary: WorkoutSummary = {
         title,
-        date,
+        date: records[0].start_time, // Use original date with time instead of grouped date key
         totalSets,
         totalReps,
         totalVolume,

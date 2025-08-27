@@ -131,7 +131,7 @@ const WorkoutReportsPage: React.FC = () => {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Dashboard de Treinos
+            Relatório de Treinos
           </h1>
           <p className="text-gray-600">
             Análise de volume e evolução dos seus treinos
