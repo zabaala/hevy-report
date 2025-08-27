@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Card from '../atoms/Card'
 import ExerciseFilter from '../molecules/ExerciseFilter'
 import { WorkoutSummary, ExerciseFilter as ExerciseFilterType } from '../../types/workout'
@@ -17,6 +17,9 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({
   exerciseFilters,
   onExerciseFilterChange
 }) => {
+  // State for exercise filter toggle
+  const [showExerciseFilter, setShowExerciseFilter] = useState(false)
+
   // Sort summaries by date (chronological order)
   const sortedSummaries = [...summaries].sort((a, b) => 
     new Date(a.date).getTime() - new Date(b.date).getTime()
@@ -37,16 +40,33 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({
   })
 
   return (
-    <Card title={workoutTitle} className="print:break-inside-avoid">
-      <div className="space-y-4">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 print:break-inside-avoid">
+      {/* Custom Header with Toggle Button */}
+      <div className="flex items-center justify-between p-6 border-b border-gray-200">
+        <h3 className="text-lg font-semibold text-gray-900">{workoutTitle}</h3>
+        <button
+          onClick={() => setShowExerciseFilter(!showExerciseFilter)}
+          className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
+            showExerciseFilter
+              ? 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          }`}
+        >
+          {showExerciseFilter ? '✓ Filtrar' : 'Filtrar'}
+        </button>
+      </div>
+
+      <div className="p-6 space-y-4">
         {/* Exercise Filter */}
-        <div className="border-b border-gray-200 pb-4">
-          <ExerciseFilter
-            workoutTitle={workoutTitle}
-            exercises={exerciseFiltersWithCounters}
-            onFilterChange={onExerciseFilterChange}
-          />
-        </div>
+        {showExerciseFilter && (
+          <div className="border-b border-gray-200 pb-4">
+            <ExerciseFilter
+              workoutTitle={workoutTitle}
+              exercises={exerciseFiltersWithCounters}
+              onFilterChange={onExerciseFilterChange}
+            />
+          </div>
+        )}
 
         {/* Workout Sessions */}
         <div className="space-y-3">
@@ -112,17 +132,17 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({
 
         {/* Summary stats */}
         {sortedSummaries.length > 0 && (
-          <div className="mt-6 pt-4 border-t border-dark-border">
+          <div className="mt-6 pt-4 border-t border-gray-200">
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div className="text-center">
-                <div className="text-dark-text-secondary">Total de Sessões</div>
-                <div className="font-bold text-dark-text text-lg">
+                <div className="text-gray-600">Total de Sessões</div>
+                <div className="font-bold text-gray-900 text-lg">
                   {sortedSummaries.length}
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-dark-text-secondary">Volume Médio</div>
-                <div className="font-bold text-dark-text text-lg">
+                <div className="text-gray-600">Volume Médio</div>
+                <div className="font-bold text-gray-900 text-lg">
                   {(sortedSummaries.reduce((sum, s) => sum + s.totalVolume, 0) / sortedSummaries.length).toFixed(1)} kg
                 </div>
               </div>
@@ -130,7 +150,7 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({
           </div>
         )}
       </div>
-    </Card>
+    </div>
   )
 }
 
