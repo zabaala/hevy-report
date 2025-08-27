@@ -132,6 +132,22 @@ export const getVolumeChangeColor = (diff: number): string => {
 
 export const formatVolumeDiff = (diff: number, percent: number): string => {
   const sign = diff >= 0 ? '+' : ''
-  const formattedPercent = percent.toFixed(2)
-  return `${sign}${diff.toFixed(1)}kg (${sign}${formattedPercent}%)`
+  const formattedWeight = formatWeight(Math.abs(diff))
+  const formattedPercent = formatPercentage(Math.abs(percent))
+  return `${sign}${formattedWeight} (${sign}${formattedPercent})`
+}
+
+// Format weight values with thousands separator and kg suffix
+export const formatWeight = (value: number): string => {
+  return value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' kg'
+}
+
+// Format percentage values with 2 decimal places
+export const formatPercentage = (value: number): string => {
+  return value.toFixed(2) + '%'
+}
+
+// Format numbers with thousands separator (no suffix)
+export const formatNumber = (value: number, decimals: number = 0): string => {
+  return value.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 }

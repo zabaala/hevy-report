@@ -1,4 +1,5 @@
 import React from 'react'
+import { formatPercentage } from '../../utils/workoutCalculations'
 
 interface ProgressBarProps {
   progress: number // 0-100
@@ -18,7 +19,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
       <div className="flex justify-between items-center mb-2">
         <span className="text-sm text-dark-text-secondary">Progresso da importação</span>
         {showPercentage && (
-          <span className="text-sm text-dark-text">{clampedProgress.toFixed(0)}%</span>
+          <span className="text-sm text-dark-text">{formatPercentage(clampedProgress)}</span>
         )}
       </div>
       <div className="w-full bg-dark-border rounded-full h-2">

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useWorkoutStore } from '../store/workoutStore'
 import WorkoutCard from '../components/organisms/WorkoutCard'
 import Button from '../components/atoms/Button'
-import { calculateWorkoutSummaries } from '../utils/workoutCalculations'
+import { calculateWorkoutSummaries, formatWeight } from '../utils/workoutCalculations'
 
 const WorkoutReportsPage: React.FC = () => {
   const navigate = useNavigate()
@@ -226,10 +226,9 @@ const WorkoutReportsPage: React.FC = () => {
         </div>
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 text-center">
           <div className="text-2xl font-bold text-gray-900">
-            {Object.values(workoutSummaries)
+            {formatWeight(Object.values(workoutSummaries)
               .flat()
-              .reduce((sum, summary) => sum + summary.totalVolume, 0)
-              .toFixed(0)} kg
+              .reduce((sum, summary) => sum + summary.totalVolume, 0))}
           </div>
           <div className="text-gray-600 text-sm">
             Volume Total

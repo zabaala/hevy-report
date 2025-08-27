@@ -5,6 +5,7 @@ import Button from '../components/atoms/Button'
 import DropZone from '../components/molecules/DropZone'
 import { ImportResult } from '../services/csvImport'
 import { useWorkoutStore } from '../store/workoutStore'
+import { formatWeight } from '../utils/workoutCalculations'
 import { db } from '../services/database'
 import { WorkoutRecord } from '../types/workout'
 
@@ -175,7 +176,7 @@ const DataPage: React.FC = () => {
                         <td className="py-2 px-3 text-gray-900">{record.exercise_title}</td>
                         <td className="py-2 px-3 text-gray-600">{record.set_index + 1}</td>
                         <td className="py-2 px-3 text-gray-900">
-                          {record.weight_kg ?? '-'}
+                          {record.weight_kg ? formatWeight(record.weight_kg) : '-'}
                         </td>
                         <td className="py-2 px-3 text-gray-900">
                           {record.reps ?? '-'}
