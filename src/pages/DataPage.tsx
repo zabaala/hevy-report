@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Card from '../components/atoms/Card'
 import Button from '../components/atoms/Button'
 import DropZone from '../components/molecules/DropZone'
+import EmptyState from '../components/molecules/EmptyState'
 import { ImportResult } from '../services/csvImport'
 import { useWorkoutStore } from '../store/workoutStore'
 import { formatWeight } from '../utils/workoutCalculations'
@@ -74,37 +75,49 @@ const DataPage: React.FC = () => {
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
-      {/* Header with title and buttons */}
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Data
-          </h1>
-          <p className="text-gray-600">
-            Import and manage your Hevy workout data in CSV format
-          </p>
-        </div>
-        <div className="flex items-center space-x-3">
-          <button
-            onClick={() => setShowImport(!showImport)}
-            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
-              showImport
-                ? 'bg-blue-100 text-blue-700 hover:bg-blue-200'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            {showImport ? '✓ Import' : 'Import'}
-          </button>
-          <Button 
-            variant="secondary" 
-            size="sm" 
-            onClick={handleClearData}
-            className="text-error hover:text-error"
-          >
-            Clear Data
-          </Button>
-        </div>
-      </div>
+      {/* Show EmptyState when no data is imported */}
+      {importedData.length === 0 && !isLoading && (
+        <EmptyState onShowImport={() => setShowImport(true)} />
+      )}
+
+      {/* Show header and controls only when there is data or import section is visible */}
+      {(importedData.length > 0 || showImport) && (
+        <>
+          {/* Header with title and buttons */}
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                Data
+              </h1>
+              <p className="text-gray-600">
+                Import and manage your Hevy workout data in CSV format
+              </p>
+            </div>
+            <div className="flex items-center space-x-3">
+              <button
+                onClick={() => setShowImport(!showImport)}
+                className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+                  showImport
+                    ? 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {showImport ? '✓ Import' : 'Import'}
+              </button>
+              {importedData.length > 0 && (
+                <Button 
+                  variant="secondary" 
+                  size="sm" 
+                  onClick={handleClearData}
+                  className="text-error hover:text-error"
+                >
+                  Clear Data
+                </Button>
+              )}
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Import Section */}
       {showImport && (
