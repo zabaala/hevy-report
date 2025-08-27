@@ -17,7 +17,7 @@ export interface ImportResult {
 export class CSVImportService {
   static async importFromFile(
     file: File,
-    onProgress?: (progress: ImportProgress) => void
+    _onProgress?: (progress: ImportProgress) => void
   ): Promise<ImportResult> {
     try {
       console.log('Starting CSV import from file:', file.name)
@@ -121,16 +121,16 @@ export class CSVImportService {
               resolve({
                 success: false,
                 recordsImported: 0,
-                error: `Erro ao salvar no banco de dados: ${error instanceof Error ? error.message : 'Erro desconhecido'}`
+                error: `Error saving to database: ${error instanceof Error ? error.message : 'Unknown error'}`
               })
             }
           },
-          error: (error) => {
+          error: (error: any) => {
             console.error('Papa Parse error:', error)
             resolve({
               success: false,
               recordsImported: 0,
-              error: `Erro ao processar arquivo CSV: ${error.message}`
+              error: `Error processing CSV file: ${error.message || 'Unknown error'}`
             })
           }
         })
@@ -140,7 +140,7 @@ export class CSVImportService {
           resolve({
             success: false,
             recordsImported: 0,
-            error: 'Erro ao ler o arquivo'
+            error: 'Error reading file'
           })
         }
         
@@ -151,7 +151,7 @@ export class CSVImportService {
       return {
         success: false,
         recordsImported: 0,
-        error: `Erro inesperado: ${error instanceof Error ? error.message : 'Erro desconhecido'}`
+        error: `Unexpected error: ${error instanceof Error ? error.message : 'Unknown error'}`
       }
     }
   }

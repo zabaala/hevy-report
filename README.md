@@ -47,6 +47,28 @@ npm run dev
 4. **Access the application:**
 Open [http://localhost:5173](http://localhost:5173) in your browser.
 
+## 🌐 Live Demo
+
+The application is automatically deployed to GitHub Pages:
+**[https://zabaala.github.io/hevy-report/](https://zabaala.github.io/hevy-report/)**
+
+### 🚀 Deploy to GitHub Pages
+
+This project is configured for automatic deployment to GitHub Pages using GitHub Actions:
+
+1. **Fork this repository** to your GitHub account
+2. **Enable GitHub Pages** in repository settings:
+   - Go to Settings → Pages
+   - Source: "GitHub Actions"
+3. **Push to main branch** - deployment happens automatically
+4. **Access your deployment** at `https://zabaala.github.io/hevy-report/`
+
+The deployment workflow:
+- Builds the project with Vite
+- Configures proper base paths for GitHub Pages
+- Handles SPA routing with 404.html fallback
+- Deploys to `gh-pages` branch automatically
+
 ## 📖 How to Use
 
 ### 1. Export data from Hevy
