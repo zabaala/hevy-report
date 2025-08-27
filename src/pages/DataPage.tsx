@@ -97,7 +97,7 @@ const DataPage: React.FC = () => {
                 <p className="text-success font-medium">
                   ✓ Importação concluída com sucesso!
                 </p>
-                <p className="text-dark-text-secondary text-sm mt-1">
+                <p className="text-gray-600 text-sm mt-1">
                   {importResult.recordsImported} registros importados do CSV
                 </p>
                 <div className="mt-3">
@@ -111,7 +111,7 @@ const DataPage: React.FC = () => {
                 <p className="text-error font-medium">
                   ✗ Erro na importação
                 </p>
-                <p className="text-dark-text-secondary text-sm mt-1">
+                <p className="text-gray-600 text-sm mt-1">
                   {importResult.error}
                 </p>
               </div>
@@ -124,7 +124,7 @@ const DataPage: React.FC = () => {
       {importedData.length > 0 && (
         <Card title={`Dados Importados (${importedData.length} registros)`}>
           <div className="mb-4 flex justify-between items-center">
-            <p className="text-dark-text-secondary text-sm">
+            <p className="text-gray-600 text-sm">
               Visualização dos dados importados com paginação
             </p>
             <Button 
@@ -139,31 +139,31 @@ const DataPage: React.FC = () => {
 
           {isLoading ? (
             <div className="text-center py-8">
-              <p className="text-dark-text-secondary">Carregando dados...</p>
+              <p className="text-gray-600">Carregando dados...</p>
             </div>
           ) : (
             <>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-dark-border">
-                      <th className="text-left py-2 px-3 text-dark-text font-medium">#</th>
-                      <th className="text-left py-2 px-3 text-dark-text font-medium">Título</th>
-                      <th className="text-left py-2 px-3 text-dark-text font-medium">Data/Hora</th>
-                      <th className="text-left py-2 px-3 text-dark-text font-medium">Exercício</th>
-                      <th className="text-left py-2 px-3 text-dark-text font-medium">Set</th>
-                      <th className="text-left py-2 px-3 text-dark-text font-medium">Peso (kg)</th>
-                      <th className="text-left py-2 px-3 text-dark-text font-medium">Reps</th>
+                    <tr className="border-b border-gray-200">
+                      <th className="text-left py-2 px-3 text-gray-900 font-medium">#</th>
+                      <th className="text-left py-2 px-3 text-gray-900 font-medium">Título</th>
+                      <th className="text-left py-2 px-3 text-gray-900 font-medium">Data/Hora</th>
+                      <th className="text-left py-2 px-3 text-gray-900 font-medium">Exercício</th>
+                      <th className="text-left py-2 px-3 text-gray-900 font-medium">Set</th>
+                      <th className="text-left py-2 px-3 text-gray-900 font-medium">Peso (kg)</th>
+                      <th className="text-left py-2 px-3 text-gray-900 font-medium">Reps</th>
                     </tr>
                   </thead>
                   <tbody>
                     {currentData.map((record, index) => (
-                      <tr key={record.id || index} className="border-b border-dark-border/50">
-                        <td className="py-2 px-3 text-dark-text-secondary">
+                      <tr key={record.id || index} className="border-b border-gray-100">
+                        <td className="py-2 px-3 text-gray-600">
                           {startIndex + index + 1}
                         </td>
-                        <td className="py-2 px-3 text-dark-text">{record.title}</td>
-                        <td className="py-2 px-3 text-dark-text-secondary">
+                        <td className="py-2 px-3 text-gray-900">{record.title}</td>
+                        <td className="py-2 px-3 text-gray-600">
                           {new Date(record.start_time).toLocaleDateString('pt-BR', {
                             day: '2-digit',
                             month: '2-digit',
@@ -172,12 +172,12 @@ const DataPage: React.FC = () => {
                             minute: '2-digit'
                           })}
                         </td>
-                        <td className="py-2 px-3 text-dark-text">{record.exercise_title}</td>
-                        <td className="py-2 px-3 text-dark-text-secondary">{record.set_index + 1}</td>
-                        <td className="py-2 px-3 text-dark-text">
+                        <td className="py-2 px-3 text-gray-900">{record.exercise_title}</td>
+                        <td className="py-2 px-3 text-gray-600">{record.set_index + 1}</td>
+                        <td className="py-2 px-3 text-gray-900">
                           {record.weight_kg ?? '-'}
                         </td>
-                        <td className="py-2 px-3 text-dark-text">
+                        <td className="py-2 px-3 text-gray-900">
                           {record.reps ?? '-'}
                         </td>
                       </tr>

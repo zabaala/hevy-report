@@ -54,7 +54,7 @@ const WorkoutReportsPage: React.FC = () => {
   }
 
   const handleGoToImport = () => {
-    navigate('/import')
+    navigate('/data')
   }
 
   const handlePrint = () => {
@@ -65,8 +65,8 @@ const WorkoutReportsPage: React.FC = () => {
     return (
       <div className="max-w-6xl mx-auto">
         <div className="text-center py-12">
-          <div className="text-lg text-dark-text mb-2">Carregando dados...</div>
-          <div className="text-dark-text-secondary">
+          <div className="text-lg text-gray-900 mb-2">Carregando dados...</div>
+          <div className="text-gray-600">
             Por favor, aguarde enquanto carregamos seus treinos
           </div>
         </div>
@@ -79,9 +79,9 @@ const WorkoutReportsPage: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center py-12">
           <div className="text-lg text-error mb-2">Erro ao carregar dados</div>
-          <div className="text-dark-text-secondary mb-4">{error}</div>
+          <div className="text-gray-600 mb-4">{error}</div>
           <Button onClick={handleGoToImport} variant="primary">
-            Ir para Importação
+            Ir para Dados
           </Button>
         </div>
       </div>

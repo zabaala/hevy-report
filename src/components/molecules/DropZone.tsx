@@ -112,7 +112,7 @@ const DropZone: React.FC<DropZoneProps> = ({ onImportComplete }) => {
     >
       <div className="mb-4">
         <svg
-          className="mx-auto h-12 w-12 text-dark-text-secondary"
+          className="mx-auto h-12 w-12 text-gray-400"
           stroke="currentColor"
           fill="none"
           viewBox="0 0 48 48"
@@ -128,10 +128,10 @@ const DropZone: React.FC<DropZoneProps> = ({ onImportComplete }) => {
       </div>
       
       <div className="mb-4">
-        <p className="text-lg font-medium text-dark-text mb-2">
+        <p className="text-lg font-medium text-gray-900 mb-2">
           Arraste e solte seu arquivo CSV aqui
         </p>
-        <p className="text-sm text-dark-text-secondary">
+        <p className="text-sm text-gray-600">
           ou clique para selecionar um arquivo
         </p>
       </div>
@@ -151,7 +151,7 @@ const DropZone: React.FC<DropZoneProps> = ({ onImportComplete }) => {
         </label>
       </div>
 
-      <div className="text-xs text-dark-text-secondary">
+      <div className="text-xs text-gray-500">
         Formatos aceitos: .csv
       </div>
     </div>
