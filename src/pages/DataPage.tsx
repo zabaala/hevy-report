@@ -42,7 +42,10 @@ const DataPage: React.FC = () => {
     if (result.success) {
       await loadImportedData()
       await loadWorkouts()
+      // Hide import section on success
+      setShowImport(false)
     }
+    // Keep import section open on error for retry
   }
 
   const handleClearData = async () => {
@@ -77,11 +80,11 @@ const DataPage: React.FC = () => {
     <div className="max-w-6xl mx-auto space-y-6">
       {/* Show EmptyState when no data is imported */}
       {importedData.length === 0 && !isLoading && (
-        <EmptyState onShowImport={() => setShowImport(true)} />
+        <EmptyState onImportComplete={handleImportComplete} />
       )}
 
-      {/* Show header and controls only when there is data or import section is visible */}
-      {(importedData.length > 0 || showImport) && (
+      {/* Show header and controls when there is data */}
+      {importedData.length > 0 && (
         <>
           {/* Header with title and buttons */}
           <div className="flex items-center justify-between mb-8">
@@ -104,19 +107,47 @@ const DataPage: React.FC = () => {
               >
                 {showImport ? '✓ Import' : 'Import'}
               </button>
-              {importedData.length > 0 && (
-                <Button 
-                  variant="secondary" 
-                  size="sm" 
-                  onClick={handleClearData}
-                  className="text-error hover:text-error"
-                >
-                  Clear Data
-                </Button>
-              )}
+              <Button 
+                variant="secondary" 
+                size="sm" 
+                onClick={handleClearData}
+                className="text-error hover:text-error"
+              >
+                Clear Data
+              </Button>
             </div>
           </div>
         </>
+      )}
+
+      {/* Success Message - Outside Import Container */}
+      {importResult && importResult.success && (
+        <div className="bg-success/20 border border-success/30 p-4 rounded-md">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-success font-medium">
+                ✓ Import completed successfully!
+              </p>
+              <p className="text-gray-600 text-sm mt-1">
+                {importResult.recordsImported} records imported from CSV
+              </p>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Button onClick={handleGoToReports} size="sm">
+                View Reports
+              </Button>
+              <button
+                onClick={() => setImportResult(null)}
+                className="text-gray-400 hover:text-gray-600 transition-colors p-1"
+                aria-label="Close message"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Import Section */}
@@ -124,27 +155,9 @@ const DataPage: React.FC = () => {
         <Card title="Import CSV File">
           <DropZone onImportComplete={handleImportComplete} />
         
-        {importResult && (
-          <div className={`mt-4 p-4 rounded-md ${
-            importResult.success 
-              ? 'bg-success/20 border border-success/30' 
-              : 'bg-error/20 border border-error/30'
-          }`}>
-            {importResult.success ? (
-              <div>
-                <p className="text-success font-medium">
-                  ✓ Import completed successfully!
-                </p>
-                <p className="text-gray-600 text-sm mt-1">
-                  {importResult.recordsImported} records imported from CSV
-                </p>
-                <div className="mt-3">
-                  <Button onClick={handleGoToReports} size="sm">
-                    View Reports
-                  </Button>
-                </div>
-              </div>
-            ) : (
+          {/* Error Message - Inside Import Container for Retry */}
+          {importResult && !importResult.success && (
+            <div className="mt-4 p-4 rounded-md bg-error/20 border border-error/30">
               <div>
                 <p className="text-error font-medium">
                   ✗ Import error
@@ -153,9 +166,8 @@ const DataPage: React.FC = () => {
                   {importResult.error}
                 </p>
               </div>
-            )}
-          </div>
-        )}
+            </div>
+          )}
         </Card>
       )}
 
