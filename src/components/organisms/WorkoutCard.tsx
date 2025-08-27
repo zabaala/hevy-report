@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Card from '../atoms/Card'
 import ExerciseFilter from '../molecules/ExerciseFilter'
 import { WorkoutSummary, ExerciseFilter as ExerciseFilterType } from '../../types/workout'
 import { formatDate, getVolumeChangeColor, formatVolumeDiff } from '../../utils/workoutCalculations'

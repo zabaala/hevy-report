@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useWorkoutStore } from '../store/workoutStore'
 import WorkoutCard from '../components/organisms/WorkoutCard'
@@ -7,6 +7,8 @@ import { calculateWorkoutSummaries } from '../utils/workoutCalculations'
 
 const WorkoutReportsPage: React.FC = () => {
   const navigate = useNavigate()
+  const [showWorkoutFilter, setShowWorkoutFilter] = useState(false)
+  
   const { 
     workouts, 
     isLoading, 
@@ -80,10 +82,6 @@ const WorkoutReportsPage: React.FC = () => {
     navigate('/data')
   }
 
-  const handlePrint = () => {
-    window.print()
-  }
-
   if (isLoading) {
     return (
       <div className="max-w-6xl mx-auto">
@@ -132,68 +130,29 @@ const WorkoutReportsPage: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-dark-text mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
             Dashboard de Treinos
           </h1>
-          <p className="text-dark-text-secondary">
+          <p className="text-gray-600">
             Análise de volume e evolução dos seus treinos
           </p>
         </div>
-        <div className="flex space-x-3">
-          <Button 
-            variant="secondary" 
-            onClick={handlePrint}
-            className="print:hidden"
+        <div>
+          <button
+            onClick={() => setShowWorkoutFilter(!showWorkoutFilter)}
+            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+              showWorkoutFilter
+                ? 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
           >
-            🖨️ Imprimir
-          </Button>
-          <Button variant="secondary" onClick={handleGoToImport}>
-            📁 Importar Dados
-          </Button>
-        </div>
-      </div>
-
-      {/* Stats Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-dark-text">
-            {workouts.length}
-          </div>
-          <div className="text-dark-text-secondary text-sm">
-            Total de Sets
-          </div>
-        </div>
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-dark-text">
-            {workoutTitles.length}
-          </div>
-          <div className="text-dark-text-secondary text-sm">
-            Tipos de Treino
-          </div>
-        </div>
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-dark-text">
-            {Object.values(workoutSummaries).reduce((sum, summaries) => sum + summaries.length, 0)}
-          </div>
-          <div className="text-dark-text-secondary text-sm">
-            Sessões de Treino
-          </div>
-        </div>
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-dark-text">
-            {Object.values(workoutSummaries)
-              .flat()
-              .reduce((sum, summary) => sum + summary.totalVolume, 0)
-              .toFixed(0)} kg
-          </div>
-          <div className="text-dark-text-secondary text-sm">
-            Volume Total
-          </div>
+            {showWorkoutFilter ? '✓ Filtrar' : 'Filtrar'}
+          </button>
         </div>
       </div>
 
       {/* Workout Filter */}
-      {allWorkoutTitles.length > 0 && (
+      {showWorkoutFilter && allWorkoutTitles.length > 0 && (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold text-gray-900">Filtrar Treinos</h3>
@@ -238,6 +197,45 @@ const WorkoutReportsPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Stats Overview */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 text-center">
+          <div className="text-2xl font-bold text-gray-900">
+            {workouts.length}
+          </div>
+          <div className="text-gray-600 text-sm">
+            Total de Sets
+          </div>
+        </div>
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 text-center">
+          <div className="text-2xl font-bold text-gray-900">
+            {workoutTitles.length}
+          </div>
+          <div className="text-gray-600 text-sm">
+            Tipos de Treino
+          </div>
+        </div>
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 text-center">
+          <div className="text-2xl font-bold text-gray-900">
+            {Object.values(workoutSummaries).reduce((sum, summaries) => sum + summaries.length, 0)}
+          </div>
+          <div className="text-gray-600 text-sm">
+            Sessões de Treino
+          </div>
+        </div>
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 text-center">
+          <div className="text-2xl font-bold text-gray-900">
+            {Object.values(workoutSummaries)
+              .flat()
+              .reduce((sum, summary) => sum + summary.totalVolume, 0)
+              .toFixed(0)} kg
+          </div>
+          <div className="text-gray-600 text-sm">
+            Volume Total
+          </div>
+        </div>
+      </div>
 
       {/* Workout Cards */}
       {workoutTitles.length === 0 ? (
