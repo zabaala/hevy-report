@@ -128,34 +128,34 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({
                               </svg>
                             </button>
                             <div>
-                              <div className="font-medium text-gray-900 text-xs">
+                              <div className="font-medium text-gray-900 text-xs text-nowrap">
                                 ({summary.exercises.length}) {formatDate(summary.date)}
                               </div>
                             </div>
                           </div>
                         </td>
-                        <td className="py-3 px-4 text-center font-medium text-gray-900 text-xs">
+                        <td className="py-3 px-4 text-center font-medium text-gray-900 text-xs text-nowrap">
                           {summary.totalSets}
                         </td>
-                        <td className="py-3 px-4 text-center font-medium text-gray-900 text-xs">
+                        <td className="py-3 px-4 text-center font-medium text-gray-900 text-xs text-nowrap">
                           {summary.totalReps}
                         </td>
-                        <td className="py-3 px-4 text-right font-medium text-gray-900 text-xs">
+                        <td className="py-3 px-4 text-right font-medium text-gray-900 text-xs text-nowrap">
                           {formatWeight(summary.totalVolume)}
                         </td>
-                        <td className="py-3 px-4 text-right font-medium text-xs">
+                        <td className="py-3 px-4 text-right font-medium text-xs text-nowrap">
                           {summary.volumeDiff !== 0 ? (
                             <span className={getVolumeChangeColor(summary.volumeDiff)}>
-                              {summary.volumeDiff > 0 ? '+' : ''}{formatWeight(Math.abs(summary.volumeDiff))}
+                              {summary.volumeDiff > 0 ? '+' : '-'}{formatWeight(Math.abs(summary.volumeDiff))}
                             </span>
                           ) : (
                             <span className="text-gray-400">-</span>
                           )}
                         </td>
-                        <td className="py-3 px-4 text-right font-medium text-xs">
+                        <td className="py-3 px-4 text-right font-medium text-xs text-nowrap">
                           {summary.volumeDiffPercent !== 0 ? (
                             <span className={getVolumeChangeColor(summary.volumeDiff)}>
-                              {summary.volumeDiffPercent > 0 ? '+' : ''}{formatPercentage(Math.abs(summary.volumeDiffPercent))}
+                              {summary.volumeDiffPercent > 0 ? '+' : '-'}{formatPercentage(Math.abs(summary.volumeDiffPercent))}
                             </span>
                           ) : (
                             <span className="text-gray-400">-</span>
@@ -168,7 +168,7 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({
                         <tr>
                           <td colSpan={6} className="py-2 px-4 bg-gray-50">
                             <div className="text-xs text-gray-600 pl-6">
-                              <span className="font-medium">Exercícios: </span>
+                              <span className="font-bold">Exercícios:<br /></span>
                               {summary.exercises.join(', ')}
                             </div>
                           </td>
