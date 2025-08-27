@@ -22,6 +22,20 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({
     new Date(a.date).getTime() - new Date(b.date).getTime()
   )
 
+  // Calculate exercise counters
+  const exerciseFiltersWithCounters = exerciseFilters.map(filter => {
+    // Count how many workouts contain this exercise
+    const workoutCount = summaries.filter(summary => 
+      summary.exercises.includes(filter.exerciseTitle)
+    ).length
+    
+    return {
+      ...filter,
+      workoutCount,
+      totalWorkouts: summaries.length
+    }
+  })
+
   return (
     <Card title={workoutTitle} className="print:break-inside-avoid">
       <div className="space-y-4">
@@ -29,7 +43,7 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({
         <div className="border-b border-gray-200 pb-4">
           <ExerciseFilter
             workoutTitle={workoutTitle}
-            exercises={exerciseFilters}
+            exercises={exerciseFiltersWithCounters}
             onFilterChange={onExerciseFilterChange}
           />
         </div>
