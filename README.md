@@ -1,213 +1,245 @@
 # Hevy Report
 
-Uma aplicação web para análise e acompanhamento de treinos de musculação a partir de dados exportados do aplicativo **Hevy**.
+![Hevy Report Screenshot](./resources/app-screenshot.png)
 
-## 📋 Funcionalidades
+A modern web application for analyzing and tracking strength training workouts from **Hevy** app exported data.
 
-- **Importação de dados CSV** do Hevy com drag & drop
-- **Dashboard consolidado** com métricas de volume de treino
-- **Filtros por exercício** para comparações consistentes
-- **Cálculo de diferenças percentuais** entre sessões
-- **Visualização por cards** organizados por tipo de treino
-- **Interface dark mode** responsiva e print-friendly
-- **Persistência local** com IndexedDB
+## 📋 Features
 
-## 🚀 Tecnologias
+- **CSV data import** from Hevy with drag & drop interface
+- **Comprehensive workout reports** with volume metrics and analytics
+- **Advanced filtering system** with exercise and date range filters
+- **Percentage difference calculations** between training sessions
+- **Card-based visualization** organized by workout type
+- **Light mode interface** responsive and print-friendly
+- **Local data persistence** with IndexedDB
+- **Flexible pagination** with customizable page sizes
+- **Toggle-based UI controls** for clean interface management
+
+## 🚀 Technologies
 
 - **React 18** + **TypeScript**
-- **Vite** como bundler
-- **Tailwind CSS** para estilização
-- **Zustand** para gerenciamento de estado
-- **Dexie.js** para IndexedDB
-- **Papa Parse** para processamento de CSV
-- **React Router** para navegação
+- **Vite** as build tool
+- **Tailwind CSS** for styling
+- **Zustand** for state management
+- **Dexie.js** for IndexedDB
+- **Papa Parse** for CSV processing
+- **React Router** for navigation
 
-## 📦 Instalação
+## 📦 Installation
 
-1. **Clone o repositório:**
+1. **Clone the repository:**
 ```bash
 git clone <repository-url>
 cd hevy-report
 ```
 
-2. **Instale as dependências:**
+2. **Install dependencies:**
 ```bash
 npm install
 ```
 
-3. **Execute o projeto em modo desenvolvimento:**
+3. **Run the project in development mode:**
 ```bash
 npm run dev
 ```
 
-4. **Acesse a aplicação:**
-Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
+4. **Access the application:**
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-## 📖 Como Usar
+## 📖 How to Use
 
-### 1. Exportar dados do Hevy
+### 1. Export data from Hevy
 
-1. Abra o aplicativo Hevy no seu dispositivo
-2. Vá para **Configurações** → **Exportar dados**
-3. Selecione o formato **CSV**
-4. Baixe o arquivo `HEVY-workouts.csv`
+1. Open the Hevy app on your device
+2. Go to **Settings** → **Export data**
+3. Select **CSV** format
+4. Download the `HEVY-workouts.csv` file
 
-### 2. Importar dados na aplicação
+### 2. Import data into the application
 
-1. Acesse a página **Importação**
-2. Arraste e solte o arquivo CSV na área indicada ou clique para selecionar
-3. Aguarde o processamento (será exibida uma barra de progresso)
-4. Após a importação, visualize os dados na tabela de preview
+1. Access the **Data** page
+2. Click the **Import** toggle button to show the import section
+3. Drag and drop the CSV file into the designated area or click to select
+4. Wait for processing (a progress bar will be displayed)
+5. After import, view the data in the preview table with flexible pagination
 
-### 3. Visualizar relatórios
+### 3. View workout reports
 
-1. Acesse a página **Dashboard**
-2. Visualize os cards organizados por tipo de treino (ordem alfabética)
-3. Use os filtros de exercícios dentro de cada card para análises específicas
-4. Observe as métricas de volume e diferenças percentuais entre sessões
+1. Access **Reports** → **Workouts** page
+2. Use the **date range filter** (From/To) to analyze specific periods
+3. Toggle the **Filter** button to show/hide workout type filters
+4. View cards organized by workout type (alphabetical order)
+5. Use exercise filters within each card for specific analyses
+6. Observe volume metrics and percentage differences between sessions
 
-### 4. Funcionalidades avançadas
+### 4. Advanced features
 
-- **Filtros persistentes**: Suas seleções de exercícios são salvas automaticamente
-- **Impressão**: Use Ctrl+P para imprimir relatórios de forma otimizada
-- **Responsividade**: Funciona em desktop e dispositivos móveis
+- **Persistent filters**: Your exercise selections are automatically saved
+- **Date range filtering**: Analyze workouts within specific time periods
+- **Flexible pagination**: Choose page sizes (5, 10, 25, 50, 100 records)
+- **Toggle controls**: Clean interface with collapsible sections
+- **Print optimization**: Use Ctrl+P for optimized report printing
+- **Responsive design**: Works on desktop and mobile devices
 
-## 📊 Métricas Calculadas
+## 📊 Calculated Metrics
 
-### Volume de Treino
-- **Fórmula**: `repetições × peso (kg)`
-- **Tratamento de nulos**: 
-  - Peso nulo = 0 kg
-  - Repetições nulas = 1 rep
+### Training Volume
+- **Formula**: `repetitions × weight (kg)`
+- **Null value handling**: 
+  - Null weight = 0 kg
+  - Null repetitions = 1 rep
+- **Formatting**: Uses comma as decimal separator (European format)
 
-### Diferenças Percentuais
-- **Cálculo**: `((volume_atual - volume_anterior) / volume_anterior) × 100`
-- **Cores indicativas**:
-  - 🟢 Verde: Aumento de volume
-  - 🔴 Vermelho: Diminuição de volume
-  - ⚪ Neutro: Sem mudança
+### Percentage Differences
+- **Calculation**: `((current_volume - previous_volume) / previous_volume) × 100`
+- **Visual indicators**:
+  - 🟢 Green: Volume increase
+  - 🔴 Red: Volume decrease
+  - ⚪ Neutral: No change
 
-### Consolidação por Dia
-- Múltiplas sessões do mesmo treino no mesmo dia são consolidadas
-- Ordenação cronológica crescente dentro de cada card
+### Daily Consolidation
+- Multiple sessions of the same workout on the same day are consolidated
+- Chronological ascending order within each card
+- Date range filtering affects all calculations and statistics
 
-## 🗂️ Estrutura do Projeto
+## 🗂️ Project Structure
 
 ```
 src/
-├── components/          # Componentes React (Atomic Design)
-│   ├── atoms/          # Componentes básicos (Button, Card, etc.)
-│   ├── molecules/      # Componentes compostos (DropZone, Navigation, etc.)
-│   └── organisms/      # Componentes complexos (WorkoutCard)
-├── pages/              # Páginas da aplicação
-│   ├── ImportPage.tsx  # Página de importação
-│   └── DashboardPage.tsx # Dashboard principal
-├── services/           # Serviços de dados
-│   ├── database.ts     # Configuração IndexedDB (Dexie)
-│   └── csvImport.ts    # Processamento de CSV
-├── store/              # Gerenciamento de estado (Zustand)
-│   └── workoutStore.ts # Store principal
-├── types/              # Definições TypeScript
-│   └── workout.ts      # Interfaces e tipos
-├── utils/              # Utilitários
-│   └── workoutCalculations.ts # Cálculos e formatações
-└── styles/             # Estilos globais
-    └── index.css       # Configuração Tailwind
+├── components/          # React Components (Atomic Design)
+│   ├── atoms/          # Basic components (Button, Card, ProgressBar, etc.)
+│   ├── molecules/      # Composite components (DropZone, Navigation, ExerciseFilter, etc.)
+│   └── organisms/      # Complex components (WorkoutCard)
+├── pages/              # Application pages
+│   ├── DataPage.tsx    # Data import and management page
+│   └── WorkoutReportsPage.tsx # Main workout reports page
+├── services/           # Data services
+│   ├── database.ts     # IndexedDB configuration (Dexie)
+│   └── csvImport.ts    # CSV processing
+├── store/              # State management (Zustand)
+│   └── workoutStore.ts # Main store
+├── types/              # TypeScript definitions
+│   └── workout.ts      # Interfaces and types
+├── utils/              # Utilities
+│   └── workoutCalculations.ts # Calculations and formatting
+└── styles/             # Global styles
+    └── index.css       # Tailwind configuration
 ```
 
-## 🛠️ Scripts Disponíveis
+## 🛠️ Available Scripts
 
 ```bash
-# Desenvolvimento
+# Development
 npm run dev
 
-# Build para produção
+# Production build
 npm run build
 
-# Preview da build
+# Preview build
 npm run preview
 
 # Linting
 npm run lint
 
-# Formatação de código
+# Code formatting
 npm run format
 ```
 
-## 🎨 Personalização
+## 🎨 Customization
 
-### Cores do Tema
-As cores podem ser personalizadas no arquivo `tailwind.config.js`:
+### Theme Colors
+Colors can be customized in the `tailwind.config.js` file:
 
 ```javascript
 theme: {
   extend: {
     colors: {
-      dark: {
-        bg: '#0f172a',      // Fundo principal
-        surface: '#1e293b', // Superfícies (cards, navegação)
-        border: '#334155',  // Bordas
-        text: '#f1f5f9',    // Texto principal
-        'text-secondary': '#94a3b8', // Texto secundário
+      // Light mode colors (current theme)
+      gray: {
+        50: '#f9fafb',   // Background
+        100: '#f3f4f6',  // Surface elements
+        200: '#e5e7eb',  // Borders
+        600: '#4b5563',  // Secondary text
+        900: '#111827',  // Primary text
       },
-      success: '#10b981',   // Verde (aumentos)
-      error: '#ef4444',     // Vermelho (diminuições)
+      success: '#10b981',   // Green (increases)
+      error: '#ef4444',     // Red (decreases)
+      blue: '#3b82f6',      // Primary actions
     }
   }
 }
 ```
 
-## 📱 Responsividade
+## 📱 Responsiveness
 
-A aplicação é otimizada para:
-- **Desktop**: Experiência completa com layout em grid
-- **Tablet**: Adaptação automática dos cards
-- **Mobile**: Interface simplificada mas funcional
+The application is optimized for:
+- **Desktop**: Complete experience with grid layout and full feature set
+- **Tablet**: Automatic card adaptation with responsive controls
+- **Mobile**: Simplified but functional interface with touch-friendly elements
 
-## 🖨️ Impressão
+## 🖨️ Print Support
 
-O layout é otimizado para impressão com:
-- Remoção de elementos de navegação
-- Ajuste de cores para impressão em preto e branco
-- Quebras de página adequadas nos cards
-- Footer com data de geração
+The layout is optimized for printing with:
+- Navigation elements removal
+- Color adjustments for black and white printing
+- Proper page breaks in cards
+- Footer with generation date
+- Print-friendly formatting for reports
 
-## 🔧 Desenvolvimento
+## 🔧 Development
 
-### Adicionando Novos Relatórios
+### Adding New Reports
 
-1. Crie novos tipos em `src/types/workout.ts`
-2. Implemente cálculos em `src/utils/workoutCalculations.ts`
-3. Crie componentes em `src/components/`
-4. Adicione rotas em `src/App.tsx`
+1. Create new types in `src/types/workout.ts`
+2. Implement calculations in `src/utils/workoutCalculations.ts`
+3. Create components in `src/components/`
+4. Add routes in `src/App.tsx`
 
-### Estrutura de Dados
+### Data Structure
 
-O CSV do Hevy contém as seguintes colunas principais:
-- `title`: Título do treino
-- `start_time`: Data/hora de início
-- `exercise_title`: Nome do exercício
-- `set_index`: Índice do set
-- `weight_kg`: Peso em quilogramas
-- `reps`: Número de repetições
+The Hevy CSV contains the following main columns:
+- `title`: Workout title
+- `start_time`: Start date/time
+- `exercise_title`: Exercise name
+- `set_index`: Set index
+- `weight_kg`: Weight in kilograms
+- `reps`: Number of repetitions
 
-## 📄 Licença
+### Key Features Implementation
 
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+- **Date Range Filtering**: Implemented in WorkoutReportsPage with start/end date inputs
+- **Toggle Controls**: Clean UI with collapsible sections for better UX
+- **Flexible Pagination**: Customizable page sizes (5-100 records)
+- **European Number Formatting**: Comma as decimal separator for weights
+- **Persistent State**: Filters and preferences saved in localStorage
 
-## 🤝 Contribuição
+## 📄 License
 
-Contribuições são bem-vindas! Por favor:
+This project is under the MIT license. See the `LICENSE` file for more details.
 
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+## 🤝 Contributing
 
-## 📞 Suporte
+Contributions are welcome! Please:
 
-Se encontrar problemas ou tiver sugestões:
-- Abra uma issue no GitHub
-- Descreva o problema com detalhes
-- Inclua screenshots se necessário
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📞 Support
+
+If you encounter problems or have suggestions:
+- Open an issue on GitHub
+- Describe the problem in detail
+- Include screenshots if necessary
+
+## 🌟 Recent Updates
+
+- **English Interface**: Complete translation to English for international use
+- **Date Range Filtering**: Advanced filtering by start and end dates
+- **Enhanced UI Controls**: Toggle-based interface for cleaner user experience
+- **Flexible Pagination**: Customizable page sizes for data tables
+- **European Number Formatting**: Comma decimal separator for weight values
+- **Improved Navigation**: Restructured pages with better organization
